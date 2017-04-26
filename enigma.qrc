@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pages/main.qml</file>
+        <file>images/app.png</file>
+        <file>images/menu.png</file>
+        <file>images/textinput.png</file>
+        <file>images/button_default.png</file>
+        <file>images/button_pressed.png</file>
+        <file>images/navigation_previous_item.png</file>
+        <file>images/delete.png</file>
+        <file>images/msg.png</file>
+        <file>pages/AppSettings.qml</file>
+        <file>pages/qml/ColorSlider.qml</file>
+        <file>pages/qml/DefaultWindowDecoration.qml</file>
+        <file>pages/qml/IconButtonStyle.qml</file>
+        <file>pages/qml/IconGlyph.qml</file>
+        <file>pages/qml/icons.ttf</file>
+        <file>pages/ContactMessages.qml</file>
+        <file>pages/AndroidDelegate.qml</file>
+        <file>pages/MessagesDelegate.qml</file>
+    </qresource>
+</RCC>
