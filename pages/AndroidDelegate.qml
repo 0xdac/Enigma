@@ -55,8 +55,8 @@ Item {
             //id: name
             color: "black"
             //font.pixelSize: 12
-            //text: modelData.name
-            text: name
+            text: modelData.name
+            //text: name
             //anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 30
@@ -66,8 +66,8 @@ Item {
             //id: cost
             color: "black"
             //font.pixelSize: 12
-            //text: "$" + modelData.number
-            text: number
+            text: modelData.number
+            //text: number
             //anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
             anchors.leftMargin: 30
