@@ -38,40 +38,30 @@ ApplicationWindow {
     property int max_items: 7
 
     Enigma {
-        id: mailer
+        id: enigma
     }
 
     MessageDialog {
         id: messageDialog
     }
 
-    Settings {
-        id: settings
-        property string mailuser: ""
-        property string mailpassword: ""
-        property string destinyemail: ""
-        property string token: ""
-        property string subject: ""
-
-        function validateToken(token)
-        {
-            if(token.search(';') !== -1)
-                return false;
-
-            //16 characters to encrypt the email body, see topupmail.cpp, send() function
-            if(token.length === 16)
-                return true;
-
-            return false;
-        }
-    }
-
-    function showSendGUI()
+    function showMainGUI()
     {
-        backButton.visible = false
-        newMsgButton.visible = true
-        //rect.visible = true
-        titleLabel.text = "Enigma"
+        if(stackView.currentItem.objectName === "contactMessages")
+        {
+            backButton.visible = true
+            newMsgButton.visible = false
+            contactInfo.visible = false
+            titleLabel.visible = true
+            titleLabel.text = qsTr("Choose Contact")
+        }
+        else
+        {
+            backButton.visible = false
+            newMsgButton.visible = true
+            titleLabel.text = "Enigma"
+        }
+
         stackView.pop()
     }
 
@@ -79,8 +69,18 @@ ApplicationWindow {
     {
         titleLabel.text = "Preferencias"
         stackView.push("qrc:/pages/AppSettings.qml")
-        rect.visible = false
+        //rect.visible = false
         backButton.visible = true
+    }
+
+    function showContactInfoInToolBar(name, number)
+    {
+        newMsgButton.visible = false
+        backButton.visible = true
+        contactInfo.visible = true
+        titleLabel.visible = false
+        nameLabel.text = name
+        numberLabel.text = number
     }
 
 
@@ -107,13 +107,6 @@ ApplicationWindow {
             spacing: 20
             anchors.fill: parent
 
-            /*Rectangle {
-                id: rect
-                width: backButton.width
-                height: 20
-                color: "transparent"
-            }*/
-
             ToolButton {
                 id: newMsgButton
 
@@ -126,11 +119,11 @@ ApplicationWindow {
 
                 onClicked:
                 {
-                    stackView.push(Qt.resolvedUrl("ContactMessages.qml"));
+                    stackView.push(Qt.resolvedUrl("ChooseContact.qml"));
                     //stackView.currentItem.setDetailsText("Detalles de la venta")
                     newMsgButton.visible = false
                     backButton.visible = true
-                    titleLabel.text = "Secure message"
+                    titleLabel.text = qsTr("Choose contact")
                 }
             }
 
@@ -145,20 +138,7 @@ ApplicationWindow {
                     sourceSize.height: 20
                 }
 
-                onClicked:
-                {
-                    /*if(settings.mailuser != "" && settings.mailpassword != "" && settings.token != "" && settings.destinyemail != "" && settings.subject != "")
-                    {
-                        if(!settings.validateToken(crypt.decrypt(settings.token)))
-                        {
-                            messageDialog.title = "TopUp"
-                            messageDialog.text = "Token debe contener 16 caracteres. No use ';'."
-                            messageDialog.visible = true;
-                        }
-                        else showSendGUI();
-                    }*/
-                    showSendGUI();
-                }
+                onClicked: { showMainGUI(); }
             }
 
             Label {
@@ -169,6 +149,29 @@ ApplicationWindow {
                 horizontalAlignment: Qt.AlignHCenter
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
+            }
+
+            Column {
+                id: contactInfo
+                spacing: 1
+                width: parent.width
+                visible: false
+
+                Label {
+                    id: nameLabel
+                    font.pixelSize: 10
+                    elide: Label.ElideRight
+                    horizontalAlignment: Qt.AlignLeft
+                    Layout.fillWidth: true
+                }
+
+                Label {
+                    id: numberLabel
+                    font.pixelSize: 10
+                    elide: Label.ElideRight
+                    horizontalAlignment: Qt.AlignLeft
+                    Layout.fillWidth: true
+                }
             }
 
             ToolButton {
@@ -218,54 +221,7 @@ ApplicationWindow {
             ListView {
                 id: listView
                 height: mainWindow.height
-                //type = 1 = Ventas
-                /*model: ListModel {
-                    ListElement {
-                        index: 1
-                        name: "Bill Smith"
-                        number: "555 3264"
-                    }
-                    ListElement {
-                        index: 2
-                        name: "John Brown"
-                        number: "555 8426"
-                    }
-                    ListElement {
-                        index: 3
-                        name: "Sam Wise"
-                        number: "555 0473"
-                    }
-                    ListElement {
-                        index: 4
-                        name: "Bill Smith"
-                        number: "555 3264"
-                    }
-                    ListElement {
-                        index: 5
-                        name: "John Brown"
-                        number: "555 8426"
-                    }
-                    ListElement {
-                        index: 6
-                        name: "Sam Wise"
-                        number: "555 0473"
-                    }
-                    ListElement {
-                        index: 7
-                        name: "Bill Smith"
-                        number: "555 3264"
-                    }
-                    ListElement {
-                        index: 8
-                        name: "John Brown"
-                        number: "555 8426"
-                    }
-                    ListElement {
-                        index: 9
-                        name: "Sam Wise"
-                        number: "555 0473"
-                    }
-                }*/
+                //model: enigma.contacts()
                 width: parent.width
 
                 delegate: AndroidDelegate {
@@ -277,17 +233,8 @@ ApplicationWindow {
                     }
                 }
             }
-
-
-        Component.onCompleted:
-        {
-            if(settings.token === "" || settings.mailpassword === "" || settings.mailuser === "" || settings.destinyemail === "" || settings.subject === "")
-            {
-                //showSetupGUI();
-            }
         }
     }
-  }
 }
 
 
