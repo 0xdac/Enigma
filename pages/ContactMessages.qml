@@ -24,10 +24,15 @@ import org.dac.Enigma 1.0
 
 Flickable {
             id: sendGUI
-            objectName: "sendGUI"
+            objectName: "contactMessages"
             height: stackView.height
             contentWidth: stackView.width;
             contentHeight: smsText.y + smsText.height + 10
+
+            function setContactInfo(name, number)
+            {
+                mainWindow.showContactInfoInToolBar(name, number)
+            }
 
             Enigma {
                 id: enigma
@@ -44,44 +49,7 @@ Flickable {
                 ListView {
                     id: listView
                     height: stackView.height - 210
-                    /*model: ListModel {
-                        ListElement {
-                            name: "Bill Smith"
-                            number: "555 3264"
-                        }
-                        ListElement {
-                            name: "John Brown"
-                            number: "555 8426"
-                        }
-                        ListElement {
-                            name: "Sam Wise"
-                            number: "555 0473"
-                        }
-                        ListElement {
-                            name: "Bill Smith"
-                            number: "555 3264"
-                        }
-                        ListElement {
-                            name: "John Brown"
-                            number: "555 8426"
-                        }
-                        ListElement {
-                            name: "Sam Wise"
-                            number: "555 0473"
-                        }
-                        ListElement {
-                            name: "Bill Smith"
-                            number: "555 3264"
-                        }
-                        ListElement {
-                            name: "John Brown"
-                            number: "555 8426"
-                        }
-                        ListElement {
-                            name: "Sam Wise"
-                            number: "555 0473"
-                        }
-                    }*/
+                    //model: enigma.contacts()
                     width: parent.width
 
                     delegate: MessagesDelegate {
@@ -102,7 +70,7 @@ Flickable {
                     height: 40
                 }
 
-                TextField {
+                /*TextField {
                         id: phoneNumber
                         width: parent.width - 60
                         height: 40
@@ -145,7 +113,7 @@ Flickable {
                         }
 
                         onPressAndHold: { amountMenu.open() }
-                    }
+                    }*/
 
                 Row {
                     width: parent.width
