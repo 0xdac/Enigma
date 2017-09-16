@@ -59,6 +59,13 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
     }
 
+    /*public static SmsMsg[] getSMSs()
+    {
+        List<SmsMsg> messages = new List<SmsMsg>();
+
+        return messages.toArray(new SmsMsg[0]);
+    }*/
+
     public String smsHistory()
     {
         Cursor cur = getContentResolver().query(Uri.parse("content://sms/inbox"), null, null, null, null);
