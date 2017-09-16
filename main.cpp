@@ -21,7 +21,7 @@
 #include <QQmlContext>
 #include <QSettings>
 #include <QtQml>
-#include "src/utils/enigma.h"
+#include "src/enigma.h"
 
 
 int main(int argc, char *argv[])
