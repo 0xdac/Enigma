@@ -18,5 +18,6 @@
         <file>pages/ContactMessages.qml</file>
         <file>pages/AndroidDelegate.qml</file>
         <file>pages/MessagesDelegate.qml</file>
+        <file>pages/ChooseContact.qml</file>
     </qresource>
 </RCC>
